@@ -1,5 +1,6 @@
 import { geoPath } from "d3-geo";
 import { select } from "d3-selection";
+import "d3-transition";
 import React, { useEffect } from "react";
 import { createGlobalStyle } from "styled-components";
 import { feature, mesh } from "topojson";
@@ -27,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
 const Map: React.FunctionComponent = () => {
     const mapRef = React.createRef<SVGSVGElement>();
     const path = geoPath();
+    let centered: any = null;
 
     useEffect(() => {
         createMap();
@@ -41,7 +43,8 @@ const Map: React.FunctionComponent = () => {
             .enter()
             .append("path")
             .attr("class", "states")
-            .attr("d", path as any);
+            .attr("d", path as any)
+            .on("click", clicked);
         map.append("path")
             .attr(
                 "d",
@@ -54,6 +57,50 @@ const Map: React.FunctionComponent = () => {
                 )
             )
             .attr("class", "state-borders");
+    };
+
+    const clicked = (d: any) => {
+        const map = select(mapRef.current);
+        var x, y, k;
+
+        if (d && centered !== d) {
+            var centroid = path.centroid(d);
+            x = centroid[0];
+            y = centroid[1];
+            k = 4;
+            centered = d;
+        } else {
+            x = 500 / 2;
+            y = 400 / 2;
+            k = 1;
+            centered = null;
+        }
+
+        map.selectAll("path").classed(
+            "active",
+            centered &&
+                function(d: any) {
+                    return d === centered;
+                }
+        );
+
+        map.transition()
+            .duration(750)
+            .attr(
+                "transform",
+                "translate(" +
+                    500 / 2 +
+                    "," +
+                    400 / 2 +
+                    ")scale(" +
+                    k +
+                    ")translate(" +
+                    -x +
+                    "," +
+                    -y +
+                    ")"
+            )
+            .style("stroke-width", 1.5 / k + "px");
     };
 
     return (
