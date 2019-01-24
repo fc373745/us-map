@@ -65,13 +65,14 @@ const Map: React.FunctionComponent = () => {
 
         if (d && centered !== d) {
             var centroid = path.centroid(d);
+            console.log(centroid);
             x = centroid[0];
             y = centroid[1];
             k = 4;
             centered = d;
         } else {
-            x = 500 / 2;
-            y = 400 / 2;
+            x = 500;
+            y = 400;
             k = 1;
             centered = null;
         }
@@ -83,23 +84,11 @@ const Map: React.FunctionComponent = () => {
                     return d === centered;
                 }
         );
-
+        console.log(-x, -y);
         map.transition()
             .duration(750)
-            .attr(
-                "transform",
-                "translate(" +
-                    500 / 2 +
-                    "," +
-                    400 / 2 +
-                    ")scale(" +
-                    k +
-                    ")translate(" +
-                    -x +
-                    "," +
-                    -y +
-                    ")"
-            )
+            // .attr("transform", `translate(${x}, ${y})`)
+            .attr("transform", `scale(4)translate(${500 - x}, ${400 - y})`)
             .style("stroke-width", 1.5 / k + "px");
     };
 
