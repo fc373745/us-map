@@ -8,6 +8,7 @@ import us from "./us2.json";
 
 const GlobalStyle = createGlobalStyle`
     .states {
+        stroke: #373745;
         fill: #373745;
         &:hover {
             fill: black;
@@ -18,10 +19,21 @@ const GlobalStyle = createGlobalStyle`
     .state-borders {
         fill: none;
         stroke: white;
-        stroke-width: 1px;
+        stroke-width: 2px;
         stroke-linejoin: round;
         stroke-linecap: round;
         pointer-events: none;
+    }
+
+    .state-borders {
+        stroke-dasharray:1000;
+        stroke-dashoffset: 1000;
+        animation: dash 3s linear forwards;
+    }
+    @keyframes dash {
+        to {
+            stroke-dashoffset: 0;
+        }
     }
 `;
 
@@ -32,7 +44,7 @@ const Map: React.FunctionComponent = () => {
 
     useEffect(() => {
         createMap();
-    });
+    }, []);
 
     const createMap = () => {
         const map = select(mapRef.current);
@@ -65,7 +77,6 @@ const Map: React.FunctionComponent = () => {
 
         if (d && centered !== d) {
             var centroid = path.centroid(d);
-            console.log(centroid);
             x = centroid[0];
             y = centroid[1];
             k = 4;
@@ -84,11 +95,10 @@ const Map: React.FunctionComponent = () => {
                     return d === centered;
                 }
         );
-        console.log(-x, -y);
         map.transition()
             .duration(750)
             // .attr("transform", `translate(${x}, ${y})`)
-            .attr("transform", `scale(4)translate(${500 - x}, ${400 - y})`)
+            .attr("transform", `scale(2.5)translate(${500 - x}, ${400 - y})`)
             .style("stroke-width", 1.5 / k + "px");
     };
 
@@ -97,7 +107,6 @@ const Map: React.FunctionComponent = () => {
             <svg ref={mapRef} width={1000} height={800}>
                 <GlobalStyle />
             </svg>
-            ;
         </React.Fragment>
     );
 };

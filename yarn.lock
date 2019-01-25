@@ -918,6 +918,11 @@
     "@svgr/core" "^2.4.1"
     loader-utils "^1.1.0"
 
+"@tweenjs/tween.js@16.7.0":
+  version "16.7.0"
+  resolved "https://registry.yarnpkg.com/@tweenjs/tween.js/-/tween.js-16.7.0.tgz#3ada9785f5bb2d92bb6313515f88102c2e47ddab"
+  integrity sha1-OtqXhfW7LZK7YxNRX4gQLC5H3as=
+
 "@types/d3-geo@^1.11.0":
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/@types/d3-geo/-/d3-geo-1.11.0.tgz#f7921c5c50d1a43df928846d8a7e47140455687f"
@@ -8181,6 +8186,13 @@ react-is@^16.6.0:
   version "16.7.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.7.0.tgz#c1bd21c64f1f1364c6f70695ec02d69392f41bfa"
   integrity sha512-Z0VRQdF4NPDoI0tsXVMLkJLiwEBa+RP66g0xDHxgxysxSoCUccSten4RTF/UFvZF1dZvZ9Zu1sx+MDXwcOR34g==
+
+react-mt-svg-lines@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/react-mt-svg-lines/-/react-mt-svg-lines-0.9.0.tgz#182e2bf418e4c248f155507986df00711149d14c"
+  integrity sha512-i0WCFeZ+LxKk0uxz/DjDoASzwF24iDQUuIWszUXds5ZA1U+3FXC7kVY6HcaYdBfmz6I1TmzYk38HJcL++/uXgA==
+  dependencies:
+    "@tweenjs/tween.js" "16.7.0"
 
 react-scripts@2.1.3:
   version "2.1.3"
